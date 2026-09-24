@@ -1,0 +1,631 @@
+/* ------------------ General Styles ------------------ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    background: #F5F0E6;
+    color: #342010;
+    overflow-x: hidden;
+}
+
+/* ------------------ Quote Banner ------------------ */
+.quote-banner {
+    background: #342010;
+    color: #F5F0E6;
+    text-align: center;
+    padding: 35px 20px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    border-bottom: 4px solid #916C49;
+    position: relative;
+    z-index: 10;
+}
+
+.quote-banner cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 1rem;
+    font-style: normal;
+    color: #D4C4B0;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* ------------------ Side Letters ------------------ */
+.letters-container {
+    position: fixed;
+    top: 0;
+    width: 140px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    background: rgba(52, 32, 16, 0.95);
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+#letters-left {
+    left: 0;
+}
+
+#letters-right {
+    right: 0;
+}
+
+.letter {
+    position: absolute;
+    color: rgba(191, 186, 134, 0.9);
+    font-weight: bold;
+    font-size: 22px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    animation: fall 6s linear infinite;
+    opacity: 0;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(var(--startY)) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(50vh) rotate(180deg) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* ------------------ Header ------------------ */
+header {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #342010 0%, #4a2e17 100%);
+    text-align: center;
+    color: #F5F0E6;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 3.5rem;
+    font-family: 'Lora', serif;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.4rem;
+    color: #D4C4B0;
+    font-weight: 500;
+}
+
+/* ------------------ Sections ------------------ */
+.section {
+    padding: 60px 30px;
+    background: #F5F0E6;
+    box-shadow: 0 15px 50px rgba(52, 32, 16, 0.08);
+    margin: 0 auto;
+    max-width: 1100px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.section+.section {
+    margin-top: 40px;
+}
+
+.section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: 'Lora', serif;
+    color: #342010;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #916C49, #D4C4B0, #916C49);
+    border-radius: 2px;
+}
+
+/* ------------------ Photo Collage ------------------ */
+.gallery-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #916C49;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.collage-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+.collage-item {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.collage-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(52, 32, 16, 0.2);
+    border-color: #916C49;
+    z-index: 2;
+}
+
+/* ------------------ Lightbox ------------------ */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(52, 32, 16, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #F5F0E6;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+    color: #916C49;
+}
+
+/* ------------------ Padlet ------------------ */
+.padlet-embed {
+    border: 1px solid rgba(52, 32, 16, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background: #F4F4F4;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.padlet-embed iframe {
+    width: 100%;
+    height: 608px;
+    display: block;
+    border: none;
+}
+
+/* ------------------ About Teacher ------------------ */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.about-text-block {
+    flex: 1 1 320px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #342010;
+    text-align: justify;
+}
+
+.about-text-block h3 {
+    font-family: 'Lora', serif;
+    color: #916C49;
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.teacher-photo {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.teacher-photo::before {
+    content: '';
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border: 3px dashed #916C49;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: rotate 25s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.teacher-photo img {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid #916C49;
+    box-shadow: 0 15px 40px rgba(52, 32, 16, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.teacher-photo img:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 20px 50px rgba(52, 32, 16, 0.4);
+}
+
+/* ------------------ Contact ------------------ */
+#contact {
+    text-align: center;
+}
+
+.contact-details p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.contact-details a {
+    color: #916C49;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.contact-details a:hover {
+    color: #342010;
+    border-bottom: 2px solid #342010;
+}
+
+/* ------------------ Footer ------------------ */
+footer {
+    background: #342010;
+    color: #F5F0E6;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1rem;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+}
+
+/* ------------------ Language Selection ------------------ */
+.language-selection {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.language-selection label {
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #342010;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+}
+
+.language-selection label:hover {
+    color: #916C49;
+}
+
+.language-selection input[type="radio"] {
+    accent-color: #916C49;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* ------------------ Test Wizard ------------------ */
+#test-wizard {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(145, 108, 73, 0.2);
+}
+
+.progress-bar-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(145, 108, 73, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #916C49;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+#progressText {
+    font-size: 0.9rem;
+    color: #916C49;
+    font-weight: 600;
+}
+
+.level-heading {
+    font-family: 'Lora', serif;
+    color: #342010;
+    margin: 0 0 20px 0;
+    font-size: 1.4rem;
+    border-left: 5px solid #916C49;
+    padding: 10px 0 10px 15px;
+    background: linear-gradient(90deg, rgba(145, 108, 73, 0.15), transparent);
+    border-radius: 0 10px 10px 0;
+    animation: fadeIn 0.5s ease;
+}
+
+.question-text {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #342010;
+    font-size: 1.15rem;
+    line-height: 1.5;
+}
+
+.question-options label {
+    display: block;
+    margin: 12px 0;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(145, 108, 73, 0.2);
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.question-options label:hover {
+    background: rgba(145, 108, 73, 0.1);
+    border-color: #916C49;
+}
+
+.question-options input[type="radio"] {
+    margin-right: 12px;
+    accent-color: #916C49;
+    transform: scale(1.2);
+}
+
+.test-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+/* --- CENTERED START BUTTON --- */
+#startTestBtn {
+    display: block;
+    margin: 40px auto 0 auto;
+    text-align: center;
+}
+
+.nav-btn,
+.submit-btn {
+    background: #342010;
+    color: #F5F0E6;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover,
+.submit-btn:hover {
+    background: #916C49;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(52, 32, 16, 0.2);
+}
+
+.nav-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ------------------ Result ------------------ */
+#result {
+    text-align: center;
+    margin-top: 40px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(245, 240, 230, 0.9), rgba(255, 255, 255, 0.9));
+    border-radius: 20px;
+    border: 2px solid #916C49;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: slideIn 0.6s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ------------------ Responsive ------------------ */
+@media(max-width: 1024px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text-block {
+        text-align: center;
+        max-width: 600px;
+    }
+
+    .teacher-photo img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .teacher-photo::before {
+        width: 330px;
+        height: 330px;
+    }
+
+    .collage-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media(max-width: 768px) {
+    .quote-banner {
+        font-size: 1.2rem;
+        padding: 25px 15px;
+    }
+
+    header {
+        padding: 60px 20px;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .section {
+        padding: 40px 20px;
+        margin-top: 20px;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
+
+    .letters-container {
+        width: 100px;
+    }
+
+    .teacher-photo img {
+        width: 260px;
+        height: 260px;
+    }
+
+    .teacher-photo::before {
+        width: 290px;
+        height: 290px;
+    }
+
+    .language-selection {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .collage-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .test-navigation {
+        flex-direction: column;
+    }
+
+    .nav-btn,
+    .submit-btn {
+        width: 100%;
+    }
+}
